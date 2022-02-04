@@ -1,38 +1,10 @@
 import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-import bg from './img/bg.jpg'
 import React from 'react';
+import { useRouter } from 'next/router';
+import bg from './img/bg.jpg'
 
 // biblioteca de estilo: Storybook
-
-function GlobalStyle() {
-    return (
-      <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    );
-  }
 
 function Titulo(props) {
     const Tag = props.tag || 'h1';
@@ -74,10 +46,10 @@ export default function HomePage() {
 
  // const username = 'WarWolf01';
  const [username, setUsername] = React.useState('WarWolf01');
+ const rotemento = useRouter();
 
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -105,6 +77,12 @@ export default function HomePage() {
             {/*Formulario */}
             <Box
               as="form"
+              onSubmit={function(infosEvento){
+                infosEvento.preventDefault();
+                //Previnir comportamento padrão do formulario de segir para outra url.
+                //window.location.href = "/chat";
+                rotemento.push('/chat');
+              }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, borderRadius: '5px', textAlign: 'center',
@@ -117,7 +95,7 @@ export default function HomePage() {
                 {appConfig.name}
             </Text>
 
-            <input type="text"
+            {/* <input type="text"
               value={username}
               onChange={function (evento) {
                 //console.log('Usario digitou...', evento.target.value);
@@ -126,8 +104,17 @@ export default function HomePage() {
                 //Troca de variavel...
                 setUsername(valor);
               }}
-            />
-{/*             <TextField
+            /> */}
+            <TextField
+              value={username}
+              onChange={function (evento) {
+                //onChange = Sempre que tiver mudanças.
+                //console.log('Usario digitou...', evento.target.value);
+                //onde está o valor?
+                const valor = evento.target.value;
+                //Troca de variavel...
+                setUsername(valor);
+              }}
               placeholder="Senha"
               styleSheet={{
                 width: '90%', height: '40px', marginBottom: '32px'
@@ -140,7 +127,7 @@ export default function HomePage() {
                   backgroundColor: appConfig.theme.colors.neutrals[500]
                 }
               }}
-            /> */}
+            />
             <Button
               type='submit'
               label='Entrar'
