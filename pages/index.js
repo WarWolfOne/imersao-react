@@ -1,6 +1,7 @@
 import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import bg from './img/bg.jpg'
+import React from 'react';
 
 // biblioteca de estilo: Storybook
 
@@ -71,7 +72,8 @@ function Titulo(props) {
 
 export default function HomePage() {
 
-  const username = 'WarWolf01';
+ // const username = 'WarWolf01';
+ const [username, setUsername] = React.useState('WarWolf01');
 
   return (
     <>
@@ -81,7 +83,7 @@ export default function HomePage() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[100],
           backgroundImage: 'url(https://i.pinimg.com/564x/3b/4d/a7/3b4da7cc7ed9b46a39482358fcf4e739.jpg)',
-          backgroundRepeat: 'no-repeat', backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat', backgroundSize: 'cover'
           // display flex = elementos filhos em linha,
         }}
         >
@@ -97,7 +99,7 @@ export default function HomePage() {
             width: '100%', maxWidth: '700px',
             borderRadius: '5px', padding: '32px', margin: '16px',
             boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-           backgroundColor: appConfig.theme.colors.neutrals[900],
+           backgroundColor: appConfig.theme.colors.neutrals[900]
           }}
           >
             {/*Formulario */}
@@ -106,7 +108,7 @@ export default function HomePage() {
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, borderRadius: '5px', textAlign: 'center',
-                backgroundColor: appConfig.theme.colors.neutrals[700],
+                backgroundColor: appConfig.theme.colors.neutrals[700]
               }}
             >
               <Titulo tag="h2">Reino dos Duelistas!</Titulo>
@@ -114,7 +116,18 @@ export default function HomePage() {
                color: appConfig.theme.colors.neutrals[400]}}>
                 {appConfig.name}
             </Text>
-            <TextField
+
+            <input type="text"
+              value={username}
+              onChange={function (evento) {
+                //console.log('Usario digitou...', evento.target.value);
+                // onde está o valor?
+                const valor = evento.target.value;
+                //Troca de variavel...
+                setUsername(valor);
+              }}
+            />
+{/*             <TextField
               placeholder="Senha"
               styleSheet={{
                 width: '90%', height: '40px', marginBottom: '32px'
@@ -127,7 +140,7 @@ export default function HomePage() {
                   backgroundColor: appConfig.theme.colors.neutrals[500]
                 }
               }}
-            />
+            /> */}
             <Button
               type='submit'
               label='Entrar'
@@ -153,15 +166,16 @@ export default function HomePage() {
               border: '1px solid',
               borderRadius: '10px',
               flex: 1,
-              minHeight: '240px',
+              minHeight: '240px'
             }}
           >
             <Image
               styleSheet={{
                 borderRadius: '50%',
-                marginBottom: '16px',
+                marginBottom: '16px'
               }}
               src="https://i.pinimg.com/564x/79/db/eb/79dbeb599d07eafa7972158b959bfad7.jpg"
+              //src={`https://github.com/${username}.png`} Para pegar a foto do usurio do GitHub.
             />
             <Text
               variant="body4"
